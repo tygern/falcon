@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/tygern/falcon/commandline"
 	"github.com/tygern/falcon/openweathermap"
+	"github.com/tygern/falcon/restsupport"
 	"os"
 )
 
@@ -18,6 +19,18 @@ func main() {
 		return
 	}
 
-	forecast := openweathermap.FetchForecast(zipCode)
-	commandline.PrintForecast(forecast)
+	client := openweathermap.OWMClient{
+		ApiKey:     os.Getenv("OWM_KEY"),
+		BaseUrl:    "https://api.openweathermap.org",
+		RestClient: restsupport.RestTemplate{},
+	}
+
+	result, err := client.FetchForecast(zipCode)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	commandline.PrintForecast(*result)
 }

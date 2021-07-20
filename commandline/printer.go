@@ -7,5 +7,5 @@ import (
 
 func PrintForecast(forecast forecast.Forecast) {
 	fmt.Printf("Weather for %v\n", forecast.ZipCode)
-	fmt.Printf("Current temperature: %d degrees\n", forecast.CurrentTemperature)
+	fmt.Printf("Current temperature: %.1f degrees\n", forecast.CurrentTemperature)
 }

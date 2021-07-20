@@ -14,7 +14,8 @@ go test ./...
 
 ## Build
 
-Use the Go CLI's `run`, `build`, and `install` commands to run, build, or install the app locally.
+Use the Go CLI's `build` and `install` commands to build or install the app.
+Set the `OWM_KEY` environment variable to your OpenWeather API key and use the `run` command to run the app.
 
 ## Usage
 
