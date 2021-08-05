@@ -2,24 +2,32 @@ package commandline
 
 import (
 	"errors"
+	"flag"
 	"fmt"
 	"regexp"
 )
 
-func ExtractZipCode(args []string) (zipCode string, err error) {
-	if len(args) < 2 {
-		err = errors.New("please input a zip code")
-		return
+type Arguments struct {
+	ZipCode string
+}
+
+func (a *Arguments) Parse() {
+	zipCode := flag.String("zip", "", "`zip code` for forecast")
+	flag.Parse()
+
+	a.ZipCode = *zipCode
+}
+
+func ParseZipCode(maybeZipCode string) (string, error) {
+	if maybeZipCode == "" {
+		return "", errors.New("please input a zip code")
 	}
 
-	zipCode = args[1]
-
-	match, _ := regexp.Match(`^\d{5}$`, []byte(zipCode))
+	match, _ := regexp.Match(`^\d{5}$`, []byte(maybeZipCode))
 
 	if !match {
-		err = fmt.Errorf("invalid zip code: %v", zipCode)
-		return
+		return "", fmt.Errorf("invalid zip code: %s", maybeZipCode)
 	}
 
-	return
+	return maybeZipCode, nil
 }

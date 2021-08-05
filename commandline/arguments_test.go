@@ -7,20 +7,20 @@ import (
 )
 
 func TestExtractZipCode(t *testing.T) {
-	zipCode, err := ExtractZipCode([]string{"falcon", "12345"})
+	zipCode, err := ParseZipCode("12345")
 
 	assert.Equal(t, "12345", zipCode)
 	assert.Nil(t, err)
 }
 
 func TestExtractZipCodeMissing(t *testing.T) {
-	_, err := ExtractZipCode([]string{"falcon"})
+	_, err := ParseZipCode("")
 
 	assert.Equal(t, errors.New("please input a zip code"), err)
 }
 
 func TestExtractZipCodeWrongFormat(t *testing.T) {
-	_, err := ExtractZipCode([]string{"falcon", "a"})
+	_, err := ParseZipCode("a")
 
 	assert.Equal(t, errors.New("invalid zip code: a"), err)
 }

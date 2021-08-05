@@ -12,10 +12,13 @@ func main() {
 	fmt.Println("")
 	defer fmt.Println("")
 
-	zipCode, err := commandline.ExtractZipCode(os.Args)
+	arguments := new(commandline.Arguments)
+	arguments.Parse()
+
+	validZipCode, err := commandline.ParseZipCode(arguments.ZipCode)
 
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println(err)
 		return
 	}
 
@@ -25,10 +28,10 @@ func main() {
 		RestClient: restsupport.RestTemplate{},
 	}
 
-	result, err := client.FetchForecast(zipCode)
+	result, err := client.FetchForecast(validZipCode)
 
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println(err)
 		return
 	}
 

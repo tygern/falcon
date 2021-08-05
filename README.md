@@ -22,5 +22,5 @@ Set the `OWM_KEY` environment variable to your OpenWeather API key and use the `
 Pass a zipcode as an argument to the CLI to find the forecast for that zipcode.
 
 ```shell
-falcon 67530
+falcon -zip 67530
 ```
